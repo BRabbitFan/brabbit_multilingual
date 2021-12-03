@@ -2,7 +2,7 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 15:49:13
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-02 18:04:33
+ * @LastEditTime : 2021-12-03 11:07:55
  * @FilePath     : /brabbit_multilingual/src/LanguageGlobal.cpp
  * @Description  : 
  */
@@ -48,6 +48,16 @@ namespace br {
     std::string filenameStart = LanguageFilenameStart;
     auto languageString = filename.substr(filenameStart.size());
     return doStringToLanguage(languageString);
+  }
+
+  Tag doStringToTag(std::string string) {
+    auto tagSize = string.size() + 1;
+    auto tagCstr = string.c_str();
+    return strcpy(static_cast<char*>(malloc(tagSize)), tagCstr);
+  }
+
+  std::string doTagToString(Tag tag) {
+    return std::string(tag);
   }
 
 };  // namespace br

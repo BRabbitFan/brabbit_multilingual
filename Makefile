@@ -22,8 +22,12 @@ test : 	${OBJ}/main.o \
 					${OBJ}/LanguageTag.o \
 					${SRC}/main.cpp
 
-${OBJ}/main.o : ${SRC}/main.cpp
-	g++ ${SRC}/main.cpp -o ${OBJ}/main.o
+${OBJ}/main.o : ${SRC}/main.cpp \
+								${OBJ}/LanguageTranslator.o
+	g++ -o 	${OBJ}/main.o \
+					${SRC}/main.cpp \
+					${OBJ}/LanguageTranslator.o
+					
 
 ${OBJ}/LanguageGlobal.o :	${SRC}/LanguageGlobal.hpp \
 													${SRC}/LanguageGlobal.cpp \
@@ -51,10 +55,14 @@ ${OBJ}/LanguageObject.o : ${SRC}/LanguageObject.hpp \
 
 ${OBJ}/LanguageTranslator.o : ${SRC}/LanguageTranslator.hpp \
 															${SRC}/LanguageTranslator.cpp \
+															${OBJ}/LanguageGlobal.o \
+															${OBJ}/LanguageTag.o \
 															${SRC}/main.cpp
 	g++ -o 	${OBJ}/LanguageTranslator.o \
 					${SRC}/LanguageTranslator.hpp \
 					${SRC}/LanguageTranslator.cpp \
+					${OBJ}/LanguageGlobal.o \
+					${OBJ}/LanguageTag.o \
 					${SRC}/main.cpp
 
 ${OBJ}/LanguageTag.o : 	${SRC}/LanguageTag.hpp \

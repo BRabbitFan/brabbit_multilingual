@@ -2,12 +2,15 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:30:50
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-02 17:36:29
+ * @LastEditTime : 2021-12-03 11:07:28
  * @FilePath     : /brabbit_multilingual/src/LanguageTranslator.cpp
  * @Description  : 
- */
 
+ */
 #include "LanguageTranslator.hpp"
+
+#include <fstream>
+#include <iostream>
 
 namespace br {
   
@@ -20,7 +23,32 @@ namespace br {
   }
 
   bool LanguageTranslator::load(std::string filename) {
-    // TODO : 加载文件, 填充 tagToStringMap_
+    std::ifstream file{filename, std::ios::in | std::ios::binary};
+    bool isGood = file.good();
+
+    while (isGood) {
+      std::string original;
+      if (!std::getline(file, original)) {
+        isLoadSuccess_ = true;
+        break;
+      }
+      
+      std::string translation;
+      if (!std::getline(file, translation)) {
+        // isLoadSuccess_ = false;
+        break;
+      }
+
+      Tag originalTag = doStringToTag(original);
+      tagToStringMap_.insert(std::make_pair(originalTag, translation));
+
+      std::string blank;
+      if (!std::getline(file, blank)) {
+        isLoadSuccess_ = true;
+        break;
+      }
+    }
+
     return isLoadSuccess_;
   }
 

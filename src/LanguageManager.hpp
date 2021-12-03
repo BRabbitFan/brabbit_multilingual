@@ -2,7 +2,7 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:23:37
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-02 18:09:03
+ * @LastEditTime : 2021-12-03 11:31:10
  * @FilePath     : /brabbit_multilingual/src/LanguageManager.hpp
  * @Description  : 
  */
@@ -47,14 +47,19 @@ namespace br {
 
       bool setLanguage(Language language);
       Language getLanguage() const;
+      void installTranslator(std::shared_ptr<LanguageTranslator> translator);
 
     private:
+      void updateAllObjectLanguage();
       void updateObjectLanguage(LanguageObject* object);
 
     private:
       std::map<LanguageObject*, ObjectState> objectToState_;
       std::map<LanguageObject*, Tag> objectToTag_;
       std::map<LanguageObject*, LanguageSetter> objectToSetter_;
+
+      std::shared_ptr<LanguageTranslator> translator_;
+
   };  // class LanguageManager
 
 };  // namespace br

@@ -2,7 +2,7 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 15:47:48
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-02 17:36:43
+ * @LastEditTime : 2021-12-03 11:06:48
  * @FilePath     : /brabbit_multilingual/src/LanguageGlobal.hpp
  * @Description  : 
  */
@@ -12,6 +12,9 @@
 
 #include <functional>
 #include <string>
+#include <cstring>
+
+#include "LanguageTag.hpp"
 
 namespace br {
 
@@ -26,6 +29,12 @@ namespace br {
 
   using LanguageSetter = std::function<void(std::string)>;
 
+  struct TagComparer {
+    bool operator()(Tag tagA, Tag tagB) {  
+      return std::strcmp(tagA, tagB) < 0;
+    }
+  };
+
   static constexpr auto LanguageFilenameStart = "brabbit_language_";
 
   std::string doLanguageToString(Language language);
@@ -33,6 +42,9 @@ namespace br {
 
   std::string doLanguageToFilename(Language language);
   Language doFilenameToLanguage(std::string filename);
+
+  Tag doStringToTag(std::string string);
+  std::string doTagToString(Tag tag);
 
 };  // namespace br
 
