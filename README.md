@@ -6,4 +6,4 @@ A STL implementation of C + + dynamic multilingual mechanism
 
 # V1.1
 
-可实现单个文本的动态多语言, 示例可见 main.cpp.
+可实现单个文本的动态多语言, 示例可见 ./src/main.cpp.
