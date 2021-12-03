@@ -2,7 +2,7 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 15:47:48
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 11:06:48
+ * @LastEditTime : 2021-12-03 13:57:15
  * @FilePath     : /brabbit_multilingual/src/LanguageGlobal.hpp
  * @Description  : 
  */
@@ -36,12 +36,16 @@ namespace br {
   };
 
   static constexpr auto LanguageFilenameStart = "brabbit_language_";
+  static constexpr auto LanguageFilenamePath = "./language_file/";
 
   std::string doLanguageToString(Language language);
   Language doStringToLanguage(std::string string);
 
   std::string doLanguageToFilename(Language language);
   Language doFilenameToLanguage(std::string filename);
+
+  std::string doLanguageToFilepath(Language language);
+  Language doFilepathToLanguage(std::string filepath);
 
   Tag doStringToTag(std::string string);
   std::string doTagToString(Tag tag);

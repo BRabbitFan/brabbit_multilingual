@@ -2,7 +2,7 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 15:49:13
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 11:07:55
+ * @LastEditTime : 2021-12-03 14:02:02
  * @FilePath     : /brabbit_multilingual/src/LanguageGlobal.cpp
  * @Description  : 
  */
@@ -40,14 +40,26 @@ namespace br {
 
   std::string doLanguageToFilename(Language language) {
     std::string filename = LanguageFilenameStart;
-    auto languageString = doLanguageToString(language);
+    std::string languageString = doLanguageToString(language);
     return filename.append(languageString);
   }
 
   Language doFilenameToLanguage(std::string filename) {
     std::string filenameStart = LanguageFilenameStart;
-    auto languageString = filename.substr(filenameStart.size());
+    std::string languageString = filename.substr(filenameStart.size());
     return doStringToLanguage(languageString);
+  }
+
+  std::string doLanguageToFilepath(Language language) {
+    std::string filepath = LanguageFilenamePath;
+    std::string filename = doLanguageToFilename(language);
+    return filepath.append(filename);
+  }
+
+  Language doFilepathToLanguage(std::string filepath) {
+    std::string filepathStart = LanguageFilenamePath;
+    std::string filename = filepath.substr(filepathStart.size());
+    return doFilenameToLanguage(filename);
   }
 
   Tag doStringToTag(std::string string) {

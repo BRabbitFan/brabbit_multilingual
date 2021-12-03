@@ -2,7 +2,7 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:30:50
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 11:07:28
+ * @LastEditTime : 2021-12-03 14:14:56
  * @FilePath     : /brabbit_multilingual/src/LanguageTranslator.cpp
  * @Description  : 
 
@@ -10,7 +10,6 @@
 #include "LanguageTranslator.hpp"
 
 #include <fstream>
-#include <iostream>
 
 namespace br {
   
@@ -18,12 +17,16 @@ namespace br {
     : isLoadSuccess_(false)
     , language_(Language::Unknow) {}
 
-  LanguageTranslator::LanguageTranslator(std::string filename) : LanguageTranslator() {
-    load(filename);
+  LanguageTranslator::LanguageTranslator(std::string filepath) : LanguageTranslator() {
+    load(filepath);
   }
 
-  bool LanguageTranslator::load(std::string filename) {
-    std::ifstream file{filename, std::ios::in | std::ios::binary};
+  bool LanguageTranslator::load(std::string filepath) {
+    if (isLoadSuccess_) {
+      return isLoadSuccess_;
+    }
+
+    std::ifstream file{filepath, std::ios::in | std::ios::binary};
     bool isGood = file.good();
 
     while (isGood) {

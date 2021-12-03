@@ -2,9 +2,9 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:22:47
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 11:46:01
+ * @LastEditTime : 2021-12-03 14:17:24
  * @FilePath     : /brabbit_multilingual/src/main.cpp
- * @Description  : main
+ * @Description  : test 
  */
 
 #include <iostream>
@@ -15,24 +15,32 @@
 #include "LanguageObject.hpp"
 #include "LanguageTag.hpp"
 
-class BRabbitUIWidget {};
+class BRabbitUIWidget {};  // class BRabbitUIWidget
 
 class BRabbitUILabel : public BRabbitUIWidget, public br::LanguageObject {
   public:
     std::string labelText_;
-};
+};  // class BRabbitUILabel
 
 int main(int argc, char* argv[]) {
   auto& manager = br::LanguageManager::instance();
-  auto* label = new BRabbitUILabel;
-  auto translator = std::make_shared<br::LanguageTranslator>;
+  
+  auto* labelA = new BRabbitUILabel;
+  auto* labelB = new BRabbitUILabel;
+  br::LanguageSetter labelASetter = [labelA](std::string text) { labelA->labelText_ = text; };
+  br::LanguageSetter labelBSetter = [labelB](std::string text) { labelB->labelText_ = text; };
+  manager.registerObject(labelA, br::LanguageTag::Year, labelASetter);
+  manager.registerObject(labelB, br::LanguageTag::One, labelBSetter);
 
-  br::LanguageSetter labelSetter = [label](std::string text) {
-    label->labelText_ = text;
-  };
-  manager.registerObject(dynamic_cast<br::LanguageObject*>(label), br::LanguageTag::Year, labelSetter);
+  manager.setLanguage(br::Language::zh_CN);
 
-  translator->load(argv[1]);
-  br::LanguageManager::instance().installTranslator(translator);
-  return 0;  
+  std::cout << labelA->labelText_ << std::endl;
+  std::cout << labelB->labelText_ << std::endl;
+
+  manager.setLanguage(br::Language::en_US);
+
+  delete labelA;
+  std::cout << labelB->labelText_ << std::endl;
+
+  return 0;
 }
