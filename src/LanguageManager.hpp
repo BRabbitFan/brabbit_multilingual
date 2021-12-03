@@ -2,9 +2,11 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:23:37
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 11:31:10
+ * @LastEditTime : 2021-12-03 15:57:57
  * @FilePath     : /brabbit_multilingual/src/LanguageManager.hpp
- * @Description  : 
+ * @Description  : LanguageManager 语言管理器, 负责实现动态语言文本翻译.
+ *                 LanguageObject 可在此注册/注销, 注册过后即可在语言切换时自动更新文本.
+ *                 当 LanguageObject 析构时自动注销, 通常情况下无需手动注销.
  */
 
 #ifndef BR_LANGUAGE_MANAGER
@@ -15,9 +17,9 @@
 #include <set>
 #include <map>
 
+#include "LanguageTranslator.hpp"
 #include "LanguageGlobal.hpp"
 #include "LanguageObject.hpp"
-#include "LanguageTranslator.hpp"
 
 namespace br {
 
@@ -26,8 +28,8 @@ namespace br {
       static LanguageManager& instance();
 
     private:
-      LanguageManager();
-      ~LanguageManager();
+      LanguageManager() = default;
+      ~LanguageManager() = default;
       LanguageManager(const LanguageManager&) = delete;
       LanguageManager& operator=(const LanguageManager&) = delete;
 
@@ -54,11 +56,11 @@ namespace br {
       void updateObjectLanguage(LanguageObject* object);
 
     private:
-      std::map<LanguageObject*, ObjectState> objectToState_;
-      std::map<LanguageObject*, Tag> objectToTag_;
-      std::map<LanguageObject*, LanguageSetter> objectToSetter_;
+      std::map<LanguageObject*, ObjectState>    object2stateMap_;
+      std::map<LanguageObject*, Tag>            object2tagMap_;
+      std::map<LanguageObject*, LanguageSetter> object2setterMap_;
 
-      std::shared_ptr<LanguageTranslator> translator_;
+      std::shared_ptr<LanguageTranslator>       translator_;
 
   };  // class LanguageManager
 

@@ -2,9 +2,9 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:30:50
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 14:14:56
+ * @LastEditTime : 2021-12-03 14:45:32
  * @FilePath     : /brabbit_multilingual/src/LanguageTranslator.cpp
- * @Description  : 
+ * @Description  : LanguageTranslator 语言翻译器实现
 
  */
 #include "LanguageTranslator.hpp"
@@ -43,7 +43,7 @@ namespace br {
       }
 
       Tag originalTag = doStringToTag(original);
-      tagToStringMap_.insert(std::make_pair(originalTag, translation));
+      tag2stringMap_.insert(std::make_pair(originalTag, translation));
 
       std::string blank;
       if (!std::getline(file, blank)) {
@@ -64,11 +64,11 @@ namespace br {
   }
 
   std::string LanguageTranslator::translate(Tag tag) {
-    auto itor = tagToStringMap_.find(tag);
-    if (itor == tagToStringMap_.end()) {
+    auto itor = tag2stringMap_.find(tag);
+    if (itor == tag2stringMap_.end()) {
       return std::string(tag);
     }
     return itor->second;
   }
 
-};
+};  // namepace br

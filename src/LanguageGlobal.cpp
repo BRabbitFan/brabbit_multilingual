@@ -2,9 +2,9 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 15:49:13
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 14:02:02
+ * @LastEditTime : 2021-12-03 14:34:16
  * @FilePath     : /brabbit_multilingual/src/LanguageGlobal.cpp
- * @Description  : 
+ * @Description  : 多语言机制全局变量/方法实现.
  */
 
 #include "LanguageGlobal.hpp"
@@ -14,7 +14,7 @@
 
 namespace br {
 
-  static const std::map<Language, std::string> LanguageToStringMap = {
+  static const std::map<Language, std::string> Language2StringMap = {
     {Language::Unknow, "Unknow"},
     {Language::System, "System"},
     {Language::zh_CN,  "zh_CN"},
@@ -24,12 +24,12 @@ namespace br {
   };
 
   std::string doLanguageToString(Language language) {
-    return LanguageToStringMap.at(language);
+    return Language2StringMap.at(language);
   }
 
   Language doStringToLanguage(std::string string) {
     Language language = Language::Unknow;
-    for (auto pair : LanguageToStringMap) {
+    for (auto pair : Language2StringMap) {
       if (pair.second == string) {
         language = pair.first;
         break;
@@ -51,13 +51,13 @@ namespace br {
   }
 
   std::string doLanguageToFilepath(Language language) {
-    std::string filepath = LanguageFilenamePath;
+    std::string filepath = LanguageFilepathStart;
     std::string filename = doLanguageToFilename(language);
     return filepath.append(filename);
   }
 
   Language doFilepathToLanguage(std::string filepath) {
-    std::string filepathStart = LanguageFilenamePath;
+    std::string filepathStart = LanguageFilepathStart;
     std::string filename = filepath.substr(filepathStart.size());
     return doFilenameToLanguage(filename);
   }

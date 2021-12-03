@@ -2,17 +2,17 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 15:47:48
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 13:57:15
+ * @LastEditTime : 2021-12-03 16:51:42
  * @FilePath     : /brabbit_multilingual/src/LanguageGlobal.hpp
- * @Description  : 
+ * @Description  : 多语言机制全局变量/方法.
  */
 
 #ifndef BR_LANGUAGE_GLOBAL
 #define BR_LANGUAGE_GLOBAL
 
 #include <functional>
-#include <string>
 #include <cstring>
+#include <string>
 
 #include "LanguageTag.hpp"
 
@@ -25,7 +25,7 @@ namespace br {
     zh_TW  = 2,
     en_US  = 3,
     en_UK  = 4,
-  };  // enum class Language
+  };
 
   using LanguageSetter = std::function<void(std::string)>;
 
@@ -36,7 +36,7 @@ namespace br {
   };
 
   static constexpr auto LanguageFilenameStart = "brabbit_language_";
-  static constexpr auto LanguageFilenamePath = "./language_file/";
+  static constexpr auto LanguageFilepathStart = "./language_file/";
 
   std::string doLanguageToString(Language language);
   Language doStringToLanguage(std::string string);
@@ -52,4 +52,4 @@ namespace br {
 
 };  // namespace br
 
-#endif // BR_LANGUAGE_GLOBAL
+#endif // BR_LANGUAGE_GLOBAL -O3

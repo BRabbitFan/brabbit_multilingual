@@ -2,15 +2,14 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:22:47
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 14:17:24
+ * @LastEditTime : 2021-12-03 15:56:21
  * @FilePath     : /brabbit_multilingual/src/main.cpp
- * @Description  : test 
+ * @Description  : 多语言机制测试程序.
  */
 
 #include <iostream>
 #include <memory>
 
-#include "LanguageTranslator.hpp"
 #include "LanguageManager.hpp"
 #include "LanguageObject.hpp"
 #include "LanguageTag.hpp"

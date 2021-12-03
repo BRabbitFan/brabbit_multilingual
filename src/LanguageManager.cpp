@@ -2,9 +2,9 @@
  * @Author       : BRabbitFan
  * @Date         : 2021-12-02 14:23:45
  * @LastEditer   : BRabbitFan
- * @LastEditTime : 2021-12-03 14:15:02
+ * @LastEditTime : 2021-12-03 15:52:21
  * @FilePath     : /brabbit_multilingual/src/LanguageManager.cpp
- * @Description  : 
+ * @Description  : LanguageManager 语言管理器实现
  */
 
 #include "LanguageManager.hpp"
@@ -16,35 +16,29 @@ namespace br {
     return instance;
   }
 
-  LanguageManager::LanguageManager() {}
-
-  LanguageManager::~LanguageManager() {}
-
   void LanguageManager::objectCreated(LanguageObject* object) {
-    std::cout << "objectCreated" << std::endl;
     if (object == nullptr) {
       return;
     }
-    objectToState_[object] = ObjectState::Unregister;
+    object2stateMap_[object] = ObjectState::Unregister;
   }
 
   void LanguageManager::objectDestoryed(LanguageObject* object) {
-    std::cout << "objectDestoryed" << std::endl;
     if (object == nullptr) {
       return;
     }
-    objectToState_.erase(object);
-    objectToTag_.erase(object);
-    objectToSetter_.erase(object);
+    object2stateMap_.erase(object);
+    object2tagMap_.erase(object);
+    object2setterMap_.erase(object);
   }
 
   bool LanguageManager::registerObject(LanguageObject* object, Tag tag, LanguageSetter setter) {
     if (object == nullptr) {
       return false;
     }
-    objectToState_[object] = ObjectState::Register;
-    objectToTag_[object] = tag;
-    objectToSetter_[object] = setter;
+    object2stateMap_[object] = ObjectState::Register;
+    object2tagMap_[object] = tag;
+    object2setterMap_[object] = setter;
     updateObjectLanguage(object);
     return true;
   }
@@ -54,13 +48,13 @@ namespace br {
       return false;
     }
     
-    auto itor = objectToState_.find(object);
-    if (itor == objectToState_.end() || itor->second == ObjectState::Unregister) {
+    auto itor = object2stateMap_.find(object);
+    if (itor == object2stateMap_.end() || itor->second == ObjectState::Unregister) {
       return false;
     }
     
-    objectToTag_.erase(object);
-    objectToSetter_.erase(object);
+    object2tagMap_.erase(object);
+    object2setterMap_.erase(object);
     return true;
   }
 
@@ -68,8 +62,8 @@ namespace br {
     if (object == nullptr) {
       return false;
     }
-    auto itor = objectToState_.find(object);
-    if (itor == objectToState_.end()) {
+    auto itor = object2stateMap_.find(object);
+    if (itor == object2stateMap_.end()) {
       return false;
     }
     return itor->second == ObjectState::Register;
@@ -109,7 +103,7 @@ namespace br {
     if (translator_ == nullptr) {
       return;
     }
-    for (auto pair : objectToState_) {
+    for (auto pair : object2stateMap_) {
       if (pair.second == ObjectState::Register) {
         updateObjectLanguage(pair.first);
       }
@@ -121,9 +115,9 @@ namespace br {
       return;
     }
 
-    auto tagItor = objectToTag_.find(object);
-    auto setterItor = objectToSetter_.find(object);
-    if (setterItor == objectToSetter_.end() || tagItor == objectToTag_.end()) {
+    auto tagItor = object2tagMap_.find(object);
+    auto setterItor = object2setterMap_.find(object);
+    if (setterItor == object2setterMap_.end() || tagItor == object2tagMap_.end()) {
       return;
     }
 
